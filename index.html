@@ -1,0 +1,378 @@
+
+<html>
+<title>DOE Committments | Department of Energy</title>
+<meta charset="UTF-8"/>
+
+<head>
+<script src="//cdn.amcharts.com/lib/4/core.js"></script>
+<script src="//cdn.amcharts.com/lib/4/maps.js"></script>
+<script src="//cdn.amcharts.com/lib/4/geodata/usaTerritoriesLow.js"></script>
+<script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script
+  src="//code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+$( document ).ready(function() {
+/**
+ * ---------------------------------------
+ * This demo was created using amCharts 4.
+ *
+ * For more information visit:
+ * https://www.amcharts.com/
+ *
+ * Documentation is available at:
+ * https://www.amcharts.com/docs/v4/
+ * ---------------------------------------
+ */
+
+// Theme
+am4core.useTheme(am4themes_animated);
+
+ // Create map instance
+var chart = am4core.create("chartdiv", am4maps.MapChart);
+
+// Set map definition
+chart.geodata = am4geodata_usaTerritoriesLow;
+
+// Set projection
+chart.projection = new am4maps.projections.Miller();
+
+// Create map polygon series
+var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+
+//Set min/max fill color for each area
+polygonSeries.heatRules.push({
+  property: "fill",
+  target: polygonSeries.mapPolygons.template,
+  min: chart.colors.getIndex(1).brighten(1),
+  max: chart.colors.getIndex(1).brighten(-0.3),
+  logarithmic: true
+});
+
+// Make map load polygon data (state shapes and names) from GeoJSON
+polygonSeries.useGeodata = true;
+
+// Configure separator line series
+var separatorSeries = chart.series.push(new am4maps.MapLineSeries());
+separatorSeries.useGeodata = true;
+separatorSeries.mapLines.template.stroke = am4core.color("#999");
+
+// Set heatmap values for each state
+polygonSeries.data = [
+  {
+    id: "US-AL",
+    value: 170800000
+  },
+  {
+    id: "US-AK",
+    value: 65400000
+  },
+  {
+    id: "US-AZ",
+    value: 190700000
+  },
+  {
+    id: "US-AR",
+    value: 91100000
+  },
+  {
+    id: "US-CA",
+    value: 14903900000
+  },
+  {
+    id: "US-CO",
+    value: 2464900000
+  },
+  {
+    id: "US-CT",
+    value: 140100000
+  },
+  {
+    id: "US-DC",
+    value: 2551500000
+  },
+  {
+    id: "US-DE",
+    value: 55200000
+  },
+  {
+    id: "US-FL",
+    value: 197300000
+  },
+  {
+    id: "US-GA",
+    value: 196300000
+  },
+  {
+    id: "US-HI",
+    value: 61400000
+  },
+  {
+    id: "US-ID",
+    value: 6450500000
+  },
+  {
+    id: "US-IL",
+    value: 5653600000
+  },
+  {
+    id: "US-IN",
+    value: 164100000
+  },
+  {
+    id: "US-IA",
+    value: 326900000
+  },
+  {
+    id: "US-KS",
+    value: 91300000
+  },
+  {
+    id: "US-KY",
+    value: 434700000
+  },
+  {
+    id: "US-LA",
+    value: 803900000
+  },
+  {
+    id: "US-ME",
+    value: 74500000
+  },
+  {
+    id: "US-MD",
+    value: 1049600000
+  },
+  {
+    id: "US-MA",
+    value: 570600000
+  },
+  {
+    id: "US-MI",
+    value: 660700000
+  },
+  {
+    id: "US-MN",
+    value: 140900000
+  },
+  {
+    id: "US-MS",
+    value: 41800000
+  },
+  {
+    id: "US-MO",
+    value: 4644300000
+  },
+  {
+    id: "US-MT",
+    value: 50200000
+  },
+  {
+    id: "US-NE",
+    value: 45600000
+  },
+  {
+    id: "US-NV",
+    value: 3124300000
+  },
+  {
+    id: "US-NH",
+    value: 48600000
+  },
+  {
+    id: "US-NJ",
+    value: 645800000
+  },
+  {
+    id: "US-NM",
+    value: 32311400000
+  },
+  {
+    id: "US-NY",
+    value: 3423900000
+  },
+  {
+    id: "US-NC",
+    value: 287500000
+  },
+  {
+    id: "US-ND",
+    value: 104000000
+  },
+  {
+    id: "US-OH",
+    value: 2209100000
+  },
+  {
+    id: "US-OK",
+    value: 99400000
+  },
+  {
+    id: "US-OR",
+    value: 413500000
+  },
+  {
+    id: "US-PA",
+    value: 7202600000
+  },
+  {
+    id: "US-RI",
+    value: 28300000
+  },
+  {
+    id: "US-SC",
+    value: 8673000000
+  },
+  {
+    id: "US-SD",
+    value: 67100000
+  },
+  {
+    id: "US-TN",
+    value: 19175000000
+  },
+  {
+    id: "US-TX",
+    value: 757500000
+  },
+  {
+    id: "US-UT",
+    value: 374100000
+  },
+  {
+    id: "US-VT",
+    value: 23400000
+  },
+  {
+    id: "US-VA",
+    value: 878400000
+  },
+  {
+    id: "US-WA",
+    value: 12084000000
+  },
+  {
+    id: "US-WV",
+    value: 941700000
+  },
+  {
+    id: "US-WI",
+    value: 379600000
+  },
+  {
+    id: "US-WY",
+    value: 60300000
+  },
+  {
+    id: "US-AS",
+    value: 1200000
+  },
+  {
+    id: "US-GU",
+    value: 1800000
+  },
+  {
+    id: "US-MP",
+    value: 6000000
+  },
+  {
+    id: "US-PR",
+    value: 1200000
+  },
+  {
+    id: "US-VI",
+    value: 1400000
+  }
+
+
+];
+
+// Set up heat legend
+let heatLegend = chart.createChild(am4maps.HeatLegend);
+heatLegend.series = polygonSeries;
+heatLegend.align = "right";
+heatLegend.valign = "bottom";
+heatLegend.height = am4core.percent(80);
+heatLegend.orientation = "vertical";
+heatLegend.valign = "middle";
+heatLegend.marginRight = am4core.percent(4);
+heatLegend.valueAxis.renderer.opposite = true;
+heatLegend.valueAxis.renderer.dx = - 25;
+heatLegend.valueAxis.strictMinMax = false;
+heatLegend.valueAxis.fontSize = 9;
+heatLegend.valueAxis.logarithmic = true;
+
+// Configure series tooltip
+var polygonTemplate = polygonSeries.mapPolygons.template;
+polygonTemplate.tooltipText = "Since 2017 DOE has committed over ${value} in {name}";
+polygonTemplate.nonScalingStroke = true;
+polygonTemplate.strokeWidth = 0.5;
+
+// Create hover state and set alternative fill color
+var hs = polygonTemplate.states.create("hover");
+hs.properties.fill = am4core.color("#3c5bdc");
+
+
+// heat legend behavior
+polygonSeries.mapPolygons.template.events.on("over", function (event) {
+  handleHover(event.target);
+})
+
+polygonSeries.mapPolygons.template.events.on("hit", function (event) {
+  handleHover(event.target);
+})
+
+function handleHover(column) {
+  if (!isNaN(column.dataItem.value)) {
+    heatLegend.valueAxis.showTooltipAt(column.dataItem.value)
+  }
+  else {
+    heatLegend.valueAxis.hideTooltip();
+  }
+}
+
+polygonSeries.mapPolygons.template.events.on("out", function (event) {
+  heatLegend.valueAxis.hideTooltip();
+})
+}); //end on document ready
+
+</script>
+
+<style>
+    body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+#chartdiv {
+  width: 100%;
+  height: 600px;
+}
+</style>
+</head>
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-12">
+                DOE Committments since 2017.
+            </div>
+              
+        </div>
+
+           
+            <br />
+        <div class="col-sm-12" id="dt_container">
+            <div id="chartdiv"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="//www1.eere.energy.gov/apps/js/pym.v1.min.js"></script>
+<script src="//www1.eere.energy.gov/apps/js/shim.js"></script>
