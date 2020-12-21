@@ -66,7 +66,12 @@ var labelSeries = chart.series.push(new am4maps.MapImageSeries());
 var labelTemplate = labelSeries.mapImages.template.createChild(am4core.Label);
 labelTemplate.horizontalCenter = "middle";
 labelTemplate.verticalCenter = "middle";
-labelTemplate.fontSize = 11;
+labelTemplate.fontSize = 12;
+labelTemplate.fontWeight = "bold";
+labelTemplate.stroke = "black";
+labelTemplate.strokeWidth = 0.5;
+labelTemplate.strokeOpacity = 0.5;
+labelTemplate.fill = "white";
 labelTemplate.nonScaling = true;
 labelTemplate.interactionsEnabled = false;
 
