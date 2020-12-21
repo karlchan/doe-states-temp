@@ -38,7 +38,7 @@ var chart = am4core.create("chartdiv", am4maps.MapChart);
 chart.geodata = am4geodata_usaTerritoriesLow;
 
 // Set projection
-chart.projection = new am4maps.projections.Miller();
+chart.projection = new am4maps.projections.Albers();
 
 // Create map polygon series
 var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
@@ -54,11 +54,31 @@ polygonSeries.heatRules.push({
 
 // Make map load polygon data (state shapes and names) from GeoJSON
 polygonSeries.useGeodata = true;
+polygonSeries.calculateVisualCenter = true;
 
 // Configure separator line series
-var separatorSeries = chart.series.push(new am4maps.MapLineSeries());
-separatorSeries.useGeodata = true;
-separatorSeries.mapLines.template.stroke = am4core.color("#999");
+//var separatorSeries = chart.series.push(new am4maps.MapLineSeries());
+//separatorSeries.useGeodata = true;
+//separatorSeries.mapLines.template.stroke = am4core.color("#999");
+
+// State labels
+var labelSeries = chart.series.push(new am4maps.MapImageSeries());
+var labelTemplate = labelSeries.mapImages.template.createChild(am4core.Label);
+labelTemplate.horizontalCenter = "middle";
+labelTemplate.verticalCenter = "middle";
+labelTemplate.fontSize = 11;
+labelTemplate.nonScaling = true;
+labelTemplate.interactionsEnabled = false;
+
+polygonSeries.events.on("inited", function () {
+  polygonSeries.mapPolygons.each(function (polygon) {
+    var label = labelSeries.mapImages.create();
+    var state = polygon.dataItem.dataContext.id.split("-").pop();
+    label.latitude = polygon.visualLatitude;
+    label.longitude = polygon.visualLongitude;
+    label.children.getIndex(0).text = state;
+  });
+});
 
 // Set heatmap values for each state
 polygonSeries.data = [
